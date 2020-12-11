@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Congress - Legislators</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../styles/style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/d7c06acced.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <% include global/header %>
+
+<div class = "ml-3 mt-2 mainstuff">
+  <h4 class = "mt-2"> Showing <%if (info.chamber =='senate') {%> Senators <%} else {%> House Representatives <%}%> in the <%=info.session%>th Congress: </h4>
+
+  <div class="row">
+  <%for(var i=0; i<members.length;i++){%>
+    <div class="card m-2 <%if(members[i].party=='D'){%>text-primary" <%} else if(members[i].party=='R') {%>text-danger" <%} else {%>text-dark"<%}%> style="width: 24rem;">
+      <div class="card-header">
+        <% var congImg = members[i].id; %>
+        <% congImg = congImg + ".jpg" %>
+
+          <h5 class="card-title <%if(members[i].party=='D'){%>text-primary" <%} else if(members[i].party=='R') {%>text-danger" <%} else {%>text-dark"<%}%>"><%=members[i].short_title%> <%=members[i].first_name%> <%=members[i].last_name%> (<%=members[i].party%>) </h5>
+
+        <% if (members[i].twitter_account!=null){%>
+          <a target="_blank" href="<%='https://www.twitter.com/'.concat('',members[i].twitter_account)%>" class="badge badge-primary"><i class="fab fa-twitter"></i> Twitter</a>
+        <%}%>
+        <% if (members[i].facebook_account!=null){%>
+          <a target="_blank" href="<%='https://www.facebook.com/'.concat('',members[i].facebook_account)%>" class="badge badge-warning"><i class="fab fa-facebook"></i> Facebook</a>
+        <%}%>
+        <% if (members[i].youtube_account!=null){%>
+          <a target="_blank" href="<%='https://www.youtube.com/'.concat('',members[i].youtube_account)%>" class="badge badge-danger"><i class="fab fa-youtube"></i> YouTube</a>
+        <%}%>
+        <% if ((members[i].url != null) && (members[i].url != '')){%>
+          <a target="_blank" href="<%=members[i].url%>" class="badge badge-secondary"><i class="fas fa-globe"></i> Website</a>
+        <%}%>
+
+      </div>
+
+      <div class="card-body">
+        <p class="card-text <%if(members[i].party=='D'){%>text-primary" <%} else if(members[i].party=='R') {%>text-danger" <%} else {%>text-dark"<%}%> >
+
+        <img class = "rounded float-right" width = "120px" src="<%='https://theunitedstates.io/images/congress/225x275/'.concat('',congImg)%>" onerror="this.src='https://www.jennstrends.com/wp-content/uploads/2013/10/bad-profile-pic-2-768x768.jpeg'" alt="Card image cap">
+        <!-- Solution to broken image replacement from Stack Overflow: https://stackoverflow.com/questions/980855/inputting-a-default-image-in-case-the-src-attribute-of-an-html-img-is-not-vali !-->
+
+  <% var statesfull = {"AL": "Alabama","AK": "Alaska","AS": "American Samoa","AZ": "Arizona","AR": "Arkansas","CA": "California","CO": "Colorado","CT": "Connecticut","DE": "Delaware","DC": "District Of Columbia","FM": "Federated States Of Micronesia","FL": "Florida","GA": "Georgia","GU": "Guam", "HI": "Hawaii","ID": "Idaho","IL": "Illinois","IN": "Indiana","IA": "Iowa","KS": "Kansas","KY": "Kentucky","LA": "Louisiana","ME": "Maine","MH": "Marshall Islands","MD": "Maryland","MA": "Massachusetts","MI": "Michigan","MN": "Minnesota","MS": "Mississippi","MO": "Missouri","MT": "Montana",  "NE": "Nebraska","NV": "Nevada","NH": "New Hampshire","NJ": "New Jersey","NM": "New Mexico","NY": "New York","NC": "North Carolina",  "ND": "North Dakota", "MP": "Northern Mariana Islands", "OH": "Ohio", "OK": "Oklahoma", "OR": "Oregon", "PW": "Palau", "PA": "Pennsylvania","PR": "Puerto Rico","RI": "Rhode Island","SC": "South Carolina",  "SD": "South Dakota","TN": "Tennessee","TX": "Texas", "UT": "Utah","VT": "Vermont","VI": "Virgin Islands","VA": "Virginia","WA": "Washington", "WV": "West Virginia","WI": "Wisconsin",  "WY": "Wyoming"}
+  %> <!-- Shoutout to https://gist.github.com/mshafrir/2646763 for this object !-->
+
+        <b>Date of Birth:</b> <%=members[i].date_of_birth%>
+        <br> <b>Gender:</b> <% if (members[i].gender=='F') {%> Female <i class="fas fa-venus"></i><%} else {%>  Male <i class="fas fa-mars"></i><%}%>
+        <% if (members[i].title == 'Representative') {%>
+          <br> <b>State:</b> <%=statesfull[members[i].state]%>
+          <% if (members[i].district == 11) {%>
+            <%=members[i].district%>th
+          <%} else if (members[i].district.toString().endsWith("1")) {%>
+            <%=members[i].district%>st
+          <%} else if (members[i].district.toString().startsWith("1")) {%>
+            <%=members[i].district%>th
+          <%} else if (members[i].district.toString().endsWith("2")) {%>
+            <%=members[i].district%>nd
+          <%} else if (members[i].district.toString().endsWith("3")) {%>
+            <%=members[i].district%>rd
+          <%} else {%>
+            <%=members[i].district%>th
+           <%}%>district
+        <%} else {%>
+            <br> <b>State:</b> <%=statesfull[members[i].state]%> (<%=members[i].state%>)
+        <%}%>
+        <br> <b>Years Served:</b> <%=members[i].seniority%>
+        <br> <b>Party:</b> <% if (members[i].party=='D') {%> Democratic <i class="fas fa-democrat"></i><%} else if(members[i].party=='R') {%>  Republican <i class="fas fa-republican"></i><%} else {%>  Independent <i class="fas fa-question-circle"></i><%}%>
+        <% if (members[i].next_election){%>
+          <br> <b>Next Election Year:</b> <%=members[i].next_election%>
+        <%}%>
+        <% if (members[i].office){%>
+          <br> <b>Address:</b> <%=members[i].office%>
+        <%}%>
+        <% if (members[i].phone){%>
+          <br> <b>Phone Number:</b> <%=members[i].phone%>
+        <%}%>
+        <% if (members[i].total_votes){%>
+          <br> <b>Votes With Party:</b> <%=Math.round(members[i].total_votes*(members[i].votes_with_party_pct/100))%>
+          <br> <b>Votes Against Party:</b> <%=Math.round(members[i].total_votes*(members[i].votes_against_party_pct/100))%>
+          <br> <b>Missed Votes:</b> <%=members[i].missed_votes%>
+        <%}%>
+
+        <br><br>
+
+        <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                  <div id="headBill"></div>
+                  <div id="accordion">
+                    <div id="bills"></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" id="button_<%=members[i].id%>_<%=members[i].first_name%>_<%=members[i].last_name%>" class="my_button btn btn-outline-dark <%if(members[i].party=='D'){%>text-primary" <%} else if(members[i].party=='R') {%>text-danger" <%} else {%>text-dark"<%}%>" data-toggle="modal" data-target=".bd-example-modal-lg">
+          Bills Sponsored by <%=members[i].first_name%> <%=members[i].last_name%>
+        </button>
+
+
+      </div>
+    </div>
+  <%}%>
+  </div>
+  <% include global/footer %>
+
+</div>
+<script src="../scripts/scripts.js"></script>
+</body>
+</html>

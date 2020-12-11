@@ -1,0 +1,11 @@
+body{
+  background-color: #ffffff;
+  font-size: 18px;
+  color: #000080;
+  font-family: 'Raleway', sans-serif;
+}
+
+.card, .card-text {
+    max-width: 100%;
+    word-wrap: break-word;
+}

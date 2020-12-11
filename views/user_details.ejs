@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>P,R,S - User Details</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/d7c06acced.js" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+  <% include global/header %>
+  <img src = "images/congress.png" height = "200px">
+  <div id="enter_name">
+    <h2>Account Details - <%if (user==null){%> Create Account <%} else{%> <%=user.name%> <%}%></h2>
+    <h4><%=feedback%></h4>
+    <%if (user==null){%><form action="/users" method="post"><%}%>
+    <%if (user!=null){%> <form action="/users/<%=user.name%>?_method=PUT" method="post"><%}%>
+      Username:<input type="text" name="username" value = "<%if (user!=null){%><%=user.name%><%} else {%><%}%>"><br>
+      Password:<input type="text" name="password" value = "<%if (user!=null){%><%=user.password%><%}%>"><br>
+      First Name:<input type="text" name="firstname" value = "<%if (user!=null){%><%=user.firstname%><%}%>"><br>
+      Last Name:<input type="text" name="lastname" value = "<%if (user!=null){%><%=user.lastname%><%}%>"><br>
+      <%if (user==null){%><button type="submit" value="Submit">Create Account</button><%}%>
+      <%if (user!=null){%><button type="submit" value="Submit">Update Account</button><%}%>
+    </form>
+    <%if (user!=null){%>
+      <p>
+        Account created: <%=user.datecreated.split(' G')[0]%>
+        <br>
+        Account updated: <%=user.dateupdated.split(' G')[0]%>
+        <br>
+        <br>
+        You've played <span class="variable"><%=user.gamesplayed%></span> games
+        <br>
+        <br>
+        You throw paper <span class="variable"><%=Math.round(user.paper/user.gamesplayed*100)%>%</span> of the time
+        <br>
+        You throw rock <span class="variable"><%=Math.round(user.rock/user.gamesplayed*100)%>%</span> of the time
+        <br>
+        You throw scissors <span class="variable"><%=Math.round(user.scissors/user.gamesplayed*100)%>%</span> of the time
+        <br>
+        <br>
+        You win <span class="variable"><%=Math.round(user.gameswon/user.gamesplayed*100)%>%</span> of the time
+        <br>
+        You tie <span class="variable"><%=100-Math.round((parseFloat(user.gameswon)+parseFloat(user.gameslost))/user.gamesplayed*100)%>%</span> of the time
+        <br>
+        You lose <span class="variable"><%=Math.round(user.gameslost/user.gamesplayed*100)%>%</span> of the time
+      </p>
+      <form action="/users/<%=user.name%>?_method=DELETE" method="post">
+        <button type="submit" value="Delete User">Delete Account</button>
+      </form>
+    <%}%>
+  </div>
+    <footer>
+    <% include global/footer%>
+    </footer>
+ </body>
+</html>

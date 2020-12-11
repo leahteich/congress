@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Congress - About</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="../styles/style.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ </head>
+
+<body>
+  <% include global/header %>
+
+  <div id="choices">
+      <form action= "/leg" method="post" id = "form">
+
+        <div class="right col-md-3 mb-3">
+          <label for="chamber">Chamber</label>
+          <select onchange="myFunction()" id = "chamber" name="chamber" class="form-control">
+            <option value = "house">House</option>
+            <option value = "senate">Senate</option>
+          </select>
+
+          <label for="session">Session</label>
+
+          <select name = "session" id="session" class="form-control">
+            <option>116</option><option>115</option><option>114</option><option>113</option><option>112</option><option>111</option><option>110</option><option>109</option><option>108</option><option>107</option><option>106</option><option>105</option><option>104</option><option>103</option><option>102</option>
+          </select>
+
+        </div>
+        <button class = "ml-3" type="submit" id="submit">Submit</button>
+
+      </form>
+    </div>
+  <% include global/footer %>
+  <script src="../../scripts/scripts.js"></script>
+</body>
+</html>
